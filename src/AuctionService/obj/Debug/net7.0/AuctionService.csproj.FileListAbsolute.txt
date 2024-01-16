@@ -77,3 +77,4 @@ C:\Users\User\Desktop\Новая папка (2)\Carsites\src\AuctionService\obj\
 C:\Users\User\Desktop\Новая папка (2)\Carsites\src\AuctionService\obj\Debug\net7.0\AuctionService.pdb
 C:\Users\User\Desktop\Новая папка (2)\Carsites\src\AuctionService\obj\Debug\net7.0\AuctionService.genruntimeconfig.cache
 C:\Users\User\Desktop\Новая папка (2)\Carsites\src\AuctionService\obj\Debug\net7.0\ref\AuctionService.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\obj\Debug\net7.0\AuctionService.sourcelink.json
