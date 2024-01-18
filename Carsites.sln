@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionService", "src\Aucti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService", "src\SearchService\SearchService.csproj", "{CAB500FE-2F76-44C9-A7DC-BA4203F70DC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "src\Contracts\Contracts.csproj", "{D43B38A5-C4B1-4D15-AF22-F7044F8FF48A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{CAB500FE-2F76-44C9-A7DC-BA4203F70DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAB500FE-2F76-44C9-A7DC-BA4203F70DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAB500FE-2F76-44C9-A7DC-BA4203F70DC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D43B38A5-C4B1-4D15-AF22-F7044F8FF48A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D43B38A5-C4B1-4D15-AF22-F7044F8FF48A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D43B38A5-C4B1-4D15-AF22-F7044F8FF48A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D43B38A5-C4B1-4D15-AF22-F7044F8FF48A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -30,6 +36,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D56E0313-272D-4F6B-B02D-DA2555CE15A6} = {5041219B-7D48-4A0D-8B8B-269BBB97D12E}
 		{CAB500FE-2F76-44C9-A7DC-BA4203F70DC0} = {5041219B-7D48-4A0D-8B8B-269BBB97D12E}
+		{D43B38A5-C4B1-4D15-AF22-F7044F8FF48A} = {5041219B-7D48-4A0D-8B8B-269BBB97D12E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B23EA835-40B9-4C09-8EAF-27671B63AB76}

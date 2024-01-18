@@ -78,3 +78,9 @@ C:\Users\User\Desktop\Новая папка (2)\Carsites\src\AuctionService\obj\
 C:\Users\User\Desktop\Новая папка (2)\Carsites\src\AuctionService\obj\Debug\net7.0\AuctionService.genruntimeconfig.cache
 C:\Users\User\Desktop\Новая папка (2)\Carsites\src\AuctionService\obj\Debug\net7.0\ref\AuctionService.dll
 C:\Users\BOSS\Desktop\Carsites\src\AuctionService\obj\Debug\net7.0\AuctionService.sourcelink.json
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\MassTransit.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\MassTransit.Abstractions.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\MassTransit.RabbitMqTransport.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\RabbitMQ.Client.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Contracts.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Contracts.pdb
