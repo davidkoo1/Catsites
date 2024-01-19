@@ -130,3 +130,4 @@ C:\Users\User\Desktop\Carsites\src\AuctionService\obj\Debug\net7.0\refint\Auctio
 C:\Users\User\Desktop\Carsites\src\AuctionService\obj\Debug\net7.0\AuctionService.pdb
 C:\Users\User\Desktop\Carsites\src\AuctionService\obj\Debug\net7.0\AuctionService.genruntimeconfig.cache
 C:\Users\User\Desktop\Carsites\src\AuctionService\obj\Debug\net7.0\ref\AuctionService.dll
+C:\Users\User\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\MassTransit.EntityFrameworkCoreIntegration.dll
