@@ -13,7 +13,6 @@ namespace SearchService.Data
             await DB.InitAsync("SearchDb", MongoClientSettings
                 .FromConnectionString(app.Configuration.GetConnectionString("MongoDbConnection")));
 
-
             await DB.Index<Item>()
                 .Key(x => x.Make, KeyType.Text)
                 .Key(x => x.Model, KeyType.Text)
@@ -30,7 +29,7 @@ namespace SearchService.Data
 
             Console.WriteLine(items.Count + " returned from the auction service");
 
-            if(items.Count > 0) await DB.SaveAsync(items);
+            if (items.Count > 0) await DB.SaveAsync(items);
         }
     }
 }
