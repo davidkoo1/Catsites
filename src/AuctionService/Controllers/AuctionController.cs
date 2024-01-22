@@ -91,6 +91,7 @@ namespace AuctionService.Controllers
             auction.Item.Mileage = updateAuctionDto.Mileage ?? auction.Item.Mileage;
             auction.Item.Year = updateAuctionDto.Year ?? auction.Item.Year;
 
+            await _publishEndpoint.Publish(_mapper.Map<AuctionUpdated>(auction));
 
             var result = await _auctionDbContext.SaveChangesAsync() > 0;
 
@@ -109,6 +110,8 @@ namespace AuctionService.Controllers
             if (auction is null) return NotFound();
 
             _auctionDbContext.Auctions.Remove(auction);
+
+            await _publishEndpoint.Publish<AuctionDeleted>(new { Id = auction.Id.ToString() });
 
             var result = await _auctionDbContext.SaveChangesAsync() > 0;
 
