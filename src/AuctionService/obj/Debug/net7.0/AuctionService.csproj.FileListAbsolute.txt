@@ -138,3 +138,11 @@ C:\Users\User\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Microsoft.Ide
 C:\Users\User\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\User\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\User\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\MassTransit.EntityFrameworkCoreIntegration.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\BOSS\Desktop\Carsites\src\AuctionService\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
