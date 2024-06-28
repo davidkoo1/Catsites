@@ -1,26 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Entities;
+using SearchService.Infrastructure;
 using SearchService.Models;
-using SearchService.RequestHelpers;
 
-namespace SearchService.Controllers
+namespace SearchService.Endpoints
 {
-    [ApiController]
-    [Route("api/search")]
-    public class SearchController : ControllerBase
+    public class SearchEndpoint : EndpointGroupBase
     {
-        [HttpGet]
-        public async Task<ActionResult<List<Item>>> SearchItems([FromQuery] SearchParams searchParams)
+        public record SearchParams(string SearchTerm, int PageNumber = 1, int PageSize = 4, string Seller = null, string Winner = null, string OrderBy = null, string FilterBy = null);
+
+        public record Response(IReadOnlyList<Item> Results, int PageCount, long TotalCount);
+
+        public override void Map(WebApplication app) => app.MapGroup(this)
+         .MapGet(Handler);
+
+        public async Task<IResult> Handler(/*[FromServices] ISender sender,*/ [AsParameters] SearchParams searchParams)
         {
             var query = DB.PagedSearch<Item, Item>();
 
             query.Sort(x => x.Ascending(a => a.Make));
 
-            if(!string.IsNullOrEmpty(searchParams.SearchTerm))
+            if (!string.IsNullOrEmpty(searchParams.SearchTerm))
             {
                 query.Match(Search.Full, searchParams.SearchTerm).SortByTextScore();
             }
-
 
             query = searchParams.OrderBy switch
             {
@@ -29,7 +33,6 @@ namespace SearchService.Controllers
                 _ => query.Sort(x => x.Ascending(a => a.AuctionEnd))
             };
 
-
             query = searchParams.FilterBy switch
             {
                 "finished" => query.Match(x => x.AuctionEnd < DateTime.UtcNow),
@@ -37,8 +40,7 @@ namespace SearchService.Controllers
                 _ => query.Match(x => x.AuctionEnd > DateTime.UtcNow)
             };
 
-
-            if(!string.IsNullOrEmpty(searchParams.Seller))
+            if (!string.IsNullOrEmpty(searchParams.Seller))
                 query.Match(x => x.Seller == searchParams.Seller);
 
             if (!string.IsNullOrEmpty(searchParams.Winner))
@@ -49,13 +51,12 @@ namespace SearchService.Controllers
 
             var result = await query.ExecuteAsync();
 
-            return Ok(new
-            {
-                results = result.Results,
-                pageCount = result.PageCount,
-                totalCount = result.TotalCount
-            });
-
+            var response = new Response(result.Results, result.PageCount, result.TotalCount);
+            return Results.Ok(response);
         }
     }
+
+
+
+
 }
