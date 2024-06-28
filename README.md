@@ -3,3 +3,6 @@ TODO:
 ChangeArchiticture(for .net8/FastEndpoinds&MinimalApi)
 Write Testing for services
 *Use cleanArchiticture or other for clean code
+
+
+After succesfull webPart create mobileApp using MAUI
