@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\AuctionServic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "src\AuctionService\API\API.csproj", "{60E26840-9C94-402D-8587-4DA3D62DEDF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contraсts", "src\Contrats\Contraсts.csproj", "{753B332D-F50E-4979-9ED8-DF8674E12EDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contraсts", "src\Contracts\Contraсts.csproj", "{753B332D-F50E-4979-9ED8-DF8674E12EDA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "src\IdentityService\IdentityService.csproj", "{934343F4-84D1-4F16-8C48-83CBD9C36E5F}"
 EndProject
@@ -25,16 +25,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService", "src\Search
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{038C66BE-905B-461C-85F9-B23F3E4A80AD}"
 	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
 		docker-compose.yml = docker-compose.yml
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuctionsItems", "AuctionsItems", "{68FEC22E-D694-4C64-8551-DB53FC83E2F7}"
 	ProjectSection(SolutionItems) = preProject
-		src\AuctionService\AuctionsItems\AuctionReadme.md = src\AuctionService\AuctionsItems\AuctionReadme.md
 		src\AuctionService\AuctionsItems\auctionSvcSpec.pdf = src\AuctionService\AuctionsItems\auctionSvcSpec.pdf
+		src\AuctionService\AuctionsItems\Readme.md = src\AuctionService\AuctionsItems\Readme.md
 	EndProjectSection
 EndProject
 Global

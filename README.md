@@ -16,7 +16,7 @@
 
 After successful web part creation, create a mobile app using MAUI.
 
-[Auction Assets](https://github.com/davidkoo1/Carsites/src/AuctionService/AuctionsItems)
+[Auction Assets](./AuctionsItems)
 
 ## Testing Postman
 
