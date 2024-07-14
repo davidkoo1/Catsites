@@ -1,3 +1,4 @@
+using FastEndpoints;
 using MassTransit;
 using Polly;
 using Polly.Extensions.Http;
@@ -5,15 +6,14 @@ using SearchService.Consumers;
 using SearchService.Data;
 using SearchService.Services;
 using System.Net;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+//OrControllersService
+builder.Services.AddFastEndpoints();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 builder.Services.AddHttpClient<AuctionSvcHttpClient>().AddPolicyHandler(GetPolicy());
 builder.Services.AddMassTransit(x =>
 {
@@ -46,7 +46,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseAuthorization();
 
-app.MapControllers();
+//app.MapControllers();
+app.UseFastEndpoints();
 
 app.Lifetime.ApplicationStarted.Register(async () =>
 {
