@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using AuctionService.Domain.Entities;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -20,9 +21,9 @@ namespace AuctionService.Infrastructure.Persistance
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.AddInboxStateEntity();
-            //modelBuilder.AddOutboxMessageEntity();
-            //modelBuilder.AddOutboxStateEntity();
+            modelBuilder.AddInboxStateEntity();
+            modelBuilder.AddOutboxMessageEntity();
+            modelBuilder.AddOutboxStateEntity();
         }
     }
 }
