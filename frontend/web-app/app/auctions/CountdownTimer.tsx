@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react';
 import Countdown, { zeroPad } from 'react-countdown';
 
 type Props = {
@@ -26,8 +26,23 @@ const renderer = ({days, hours, minutes, seconds, completed}:
 }
 
 export default function CoutdownTimer({auctionEnd}: Props) {
+  const [showFormat, setShowFormat] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowFormat(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowFormat(false);
+  };
+
   return (
-    <div>
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="relative">
+        {showFormat && (
+          <div className="absolute top-[-30px] left-1/2 transform -translate-x-1/2 bg-black text-white text-sm px-2 py-1 rounded">
+            DD:HH:MM:SS
+          </div>
+        )}
         <Countdown date={auctionEnd} renderer={renderer} />
     </div>
   )
