@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import CoutdownTimer from './CountdownTimer'
 
 type Props = {
     auction: any
@@ -19,6 +20,10 @@ export default function AuctionCard({auction}: Props) {
                         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw'
                         priority
                     />
+            <div className='absolute bottom-2 left-2'>
+                        <CoutdownTimer auctionEnd={auction.auctionEnd} />
+                    </div>
+
                 </div>   
             </div>
         </div>
@@ -26,6 +31,7 @@ export default function AuctionCard({auction}: Props) {
                 <h3 className='text-gray-200'>{auction.make} {auction.model}</h3>
                 <p className='font-semibold text-sm'>{auction.year}</p>
             </div>
+            
     </a>
   )
 }
