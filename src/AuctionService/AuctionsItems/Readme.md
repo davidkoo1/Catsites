@@ -1,8 +1,8 @@
-# Чтобы работало
-- сделать миграцию
-- обновить миграцию для бд
-- запустить докер
-- добавить бд руками localhost, postgres, postrgerpw, standart, auctions, localhost.
+# Р§С‚РѕР±С‹ СЂР°Р±РѕС‚Р°Р»Рѕ
+- СЃРґРµР»Р°С‚СЊ РјРёРіСЂР°С†РёСЋ
+- РѕР±РЅРѕРІРёС‚СЊ РјРёРіСЂР°С†РёСЋ РґР»СЏ Р±Рґ
+- Р·Р°РїСѓСЃС‚РёС‚СЊ РґРѕРєРµСЂ
+- РґРѕР±Р°РІРёС‚СЊ Р±Рґ СЂСѓРєР°РјРё localhost, postgres, postrgerpw, standart, auctions, localhost.
 # Auction Service
 
 <p align="center">
