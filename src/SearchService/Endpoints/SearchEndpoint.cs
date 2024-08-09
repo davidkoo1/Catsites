@@ -31,7 +31,7 @@ namespace SearchService.Endpoints
         {
             var query = DB.PagedSearch<Item, Item>();
 
-            query.Sort(x => x.Ascending(a => a.Make));
+            //query.Sort(x => x.Ascending(a => a.Make));
 
             if (!string.IsNullOrEmpty(req.SearchTerm))
             {

@@ -2,7 +2,7 @@
 - сделать миграцию
 - обновить миграцию для бд
 - запустить докер
-- добавить бд руками localhost, postgres, postrgerpw, standart, auctions, localhost
+- добавить бд руками localhost, postgres, postrgerpw, standart, auctions, localhost.
 # Auction Service
 
 <p align="center">
