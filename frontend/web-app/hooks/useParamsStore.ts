@@ -7,6 +7,7 @@ type State = {
     searchTerm: string
     searchValue: string
     orderBy: string
+    filterBy: string
 }
 
 type Auctions = {
@@ -22,6 +23,7 @@ const initialState: State = {
     searchTerm: '',
     searchValue: '',
     orderBy: 'make',
+    filterBy: 'live'
 }
 
 
