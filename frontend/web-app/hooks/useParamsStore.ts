@@ -5,19 +5,21 @@ type State = {
     pageSize: number
     pageCount: number
     searchTerm: string
+    searchValue: string
 }
 
 type Auctions = {
     setParams: (params: Partial<State>) => void
     reset: () => void
+    setSearchValue: (value: string) => void
 }
 
 const initialState: State = {
     pageNumber: 1,
     pageSize: 16,
     pageCount: 1,
-    searchTerm: ''
-
+    searchTerm: '',
+    searchValue: '',
 }
 
 
@@ -26,13 +28,17 @@ export const useParamsStore = create<State & Auctions>()((set) => ({
 
     setParams: (newParams: Partial<State>) => {
         set((state) => {
-            if(newParams.pageNumber) {
-                return {...state, pageNumber: newParams.pageNumber}
+            if (newParams.pageNumber) {
+                return { ...state, pageNumber: newParams.pageNumber }
             } else {
-                return {...state, ...newParams, pageNumber: 1}
+                return { ...state, ...newParams, pageNumber: 1 }
             }
         })
     },
 
-    reset: () => set(initialState)
+    reset: () => set(initialState),
+
+    setSearchValue: (value: string) => {
+        set({searchValue: value})
+    }
 }))

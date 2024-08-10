@@ -9,10 +9,10 @@ type Props = {
     pageChanged: (page: number) => void;
 }
 
-export default function AppPagination({currentPage, pageCount, pageChanged}: Props) {
+export default function AppPagination({ currentPage, pageCount, pageChanged }: Props) {
 
     return (
-        <Pagination 
+        <Pagination
             currentPage={currentPage}
             onPageChange={e => pageChanged(e)}
             totalPages={pageCount}

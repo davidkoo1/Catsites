@@ -4,47 +4,45 @@
 
 
 :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 34, 34, 34; 
-    --background-end-rgb: 68, 68, 68;   
-  }
-  
-  body {
-    color: rgb(var(--foreground-rgb));
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.7),
-        rgba(var(--background-end-rgb), 0.9)
-      );
-    background-size: cover;
-    background-blend-mode: multiply;
-    min-height: 100vh; 
-    margin: 0;
-  }
-  
-  /*AuctionCard*/
-  .card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  }
-  
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 34, 34, 34;
+  --background-end-rgb: 68, 68, 68;
+}
 
-  
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.7),
+      rgba(var(--background-end-rgb), 0.9));
+  background-size: cover;
+  background-blend-mode: multiply;
+  min-height: 100vh;
+  margin: 0;
+}
 
-  .no-rounded {
-    border-radius: 0 !important;
+/*AuctionCard*/
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+.no-rounded {
+  border-radius: 0 !important;
 }
 
 .no-rounded:first-child {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
 }
 
 .no-rounded:last-child {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }

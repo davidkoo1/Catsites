@@ -7,7 +7,7 @@ import AppPagination from '../components/AppPagination';
 import { getData } from '../actions/actionAuction';
 import Filters from './Filters';
 import { useParamsStore } from '@/hooks/useParamsStore';
-import { shallow }  from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 import qs from 'query-string'
 
 export default function Listings() {
@@ -18,10 +18,10 @@ export default function Listings() {
         searchTerm: state.searchTerm
     }), shallow)
     const setParams = useParamsStore(state => state.setParams);
-    const url = qs.stringifyUrl({url: '', query: params})
+    const url = qs.stringifyUrl({ url: '', query: params })
 
     function setPageNumber(pageNumber: number) {
-        setParams({pageNumber})
+        setParams({ pageNumber })
     }
 
     useEffect(() => {
@@ -30,13 +30,13 @@ export default function Listings() {
         })
     }, [url])
 
-    if(!data) return <div>Loading...</div>
+    if (!data) return <div>Loading...</div>
     return (
         <>
-        <Filters />
+            <Filters />
             <div className='grid grid-cols-4 gap-6'>
                 {data.results.map(auction => (
-                    <AuctionCard auction={auction} key={auction.id}/>
+                    <AuctionCard auction={auction} key={auction.id} />
                 ))}
             </div>
 
