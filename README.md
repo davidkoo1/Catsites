@@ -15,6 +15,9 @@
 
 
 ## TODO:
+-Fix search service(sort)
+-Clear page console
+
 - Change Architecture (for .NET 8/FastEndpoints & Minimal API)
 - Write Testing for Services
 - Use Clean Architecture or other patterns for clean code

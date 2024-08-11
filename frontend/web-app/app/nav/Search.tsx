@@ -9,6 +9,8 @@ export default function Search() {
     const setParams = useParamsStore(state => state.setParams);
     const setSearchValue = useParamsStore(state => state.setSearchValue);
     const searchValue = useParamsStore(state => state.searchValue);
+    const reset = useParamsStore(state => state.reset);
+
 
     function onChange(event: any) {
         setSearchValue(event.target.value);
@@ -23,6 +25,12 @@ export default function Search() {
             <input
                 onKeyDown={(e: any) => {
                     if (e.key === 'Enter') search();
+                }}
+                onInput={(e) => {
+                    // Проверяем, если поле стало пустым, значит был нажат крестик
+                    if (e.target.value === '') {
+                        reset(); // Вызываем функцию reset, если поле очищено
+                    }
                 }}
                 value={searchValue}
                 onChange={onChange}
