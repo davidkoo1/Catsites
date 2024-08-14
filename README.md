@@ -15,18 +15,19 @@
 
 
 ## TODO:
--Fix search service(sort)
--Clear page console
+### Frontend
+- Clear AppPage console
+- Add in right-top current price
+- *mb number of car?(bottom)
 
-- Change Architecture (for .NET 8/FastEndpoints & Minimal API)
+### Backend
 - Write Testing for Services
-- Use Clean Architecture or other patterns for clean code
 - Global Usings
 
 After successful web part creation, create a mobile app using MAUI.
 
-[Auction Assets](src/AuctionService/AuctionsItems)
-[Search Assets](src/SearchService/SearchItems)
+- [Auction Assets](src/AuctionService/AuctionsItems)
+- [Search Assets](src/SearchService/SearchItems)
 
 ## Testing Postman
 
