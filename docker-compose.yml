@@ -23,7 +23,7 @@ services:
       - 15672:15672
   auction-svc:
     image: car/auction-svc:latest
-    build:
+    build: 
       context: .
       dockerfile: src/AuctionService/API/Dockerfile
     environment:
@@ -39,7 +39,7 @@ services:
       - rabbitmq
   search-svc:
     image: car/search-svc:latest
-    build:
+    build: 
       context: .
       dockerfile: src/SearchService/Dockerfile
     environment:

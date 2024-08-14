@@ -14,7 +14,7 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
         {
-            new ApiScope("auctionApp","Auction app full access")
+            new ApiScope("auctionApp", "Auction app full access"),
         };
 
     public static IEnumerable<Client> Clients =>
@@ -33,7 +33,7 @@ public static class Config
             {
                 ClientId = "nextApp",
                 ClientName = "nextApp",
-                ClientSecrets = new[] {new Secret("secret".Sha256())},
+                ClientSecrets = {new Secret("secret".Sha256())},
                 AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                 RequirePkce = false,
                 RedirectUris = {"http://localhost:3000/api/auth/callback/id-server"},

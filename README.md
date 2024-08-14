@@ -31,7 +31,8 @@ After successful web part creation, create a mobile app using MAUI.
 ## Testing Postman
 
 ## Docker
-- **docker compose up -d**
+- 2 **docker compose build search-svc** /auction/identity/gateway
+- 1 **docker compose up -d**
 - **docker compose down**
 
 ## Database

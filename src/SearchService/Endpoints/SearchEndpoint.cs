@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
+using Microsoft.AspNetCore.Mvc;
 using MongoDB.Entities;
-using SearchService.Models;
 
 namespace SearchService.Endpoints
 {
@@ -27,39 +27,43 @@ namespace SearchService.Endpoints
             AllowAnonymous();
         }
 
-        public override async Task HandleAsync(SearchParams req, CancellationToken ct)
+        public override async Task HandleAsync([FromQuery] SearchParams searchParams, CancellationToken ct)
         {
+
             var query = DB.PagedSearch<Item, Item>();
 
-            //query.Sort(x => x.Ascending(a => a.Make));
-
-            if (!string.IsNullOrEmpty(req.SearchTerm))
+            if (!string.IsNullOrEmpty(searchParams.SearchTerm))
             {
-                query.Match(Search.Full, req.SearchTerm).SortByTextScore();
+                query.Match(Search.Full, searchParams.SearchTerm).SortByTextScore();
             }
 
-            query = req.OrderBy switch
+            query = searchParams.OrderBy switch
             {
                 "make" => query.Sort(x => x.Ascending(a => a.Make)),
                 "new" => query.Sort(x => x.Descending(a => a.CreatedAt)),
                 _ => query.Sort(x => x.Ascending(a => a.AuctionEnd))
             };
 
-            query = req.FilterBy switch
+            query = searchParams.FilterBy switch
             {
                 "finished" => query.Match(x => x.AuctionEnd < DateTime.UtcNow),
-                "endingSoon" => query.Match(x => x.AuctionEnd < DateTime.UtcNow.AddHours(6) && x.AuctionEnd > DateTime.UtcNow),
+                "endingSoon" => query.Match(x => x.AuctionEnd < DateTime.UtcNow.AddHours(6)
+                    && x.AuctionEnd > DateTime.UtcNow),
                 _ => query.Match(x => x.AuctionEnd > DateTime.UtcNow)
             };
 
-            if (!string.IsNullOrEmpty(req.Seller))
-                query.Match(x => x.Seller == req.Seller);
+            if (!string.IsNullOrEmpty(searchParams.Seller))
+            {
+                query.Match(x => x.Seller == searchParams.Seller);
+            }
 
-            if (!string.IsNullOrEmpty(req.Winner))
-                query.Match(x => x.Winner == req.Winner);
+            if (!string.IsNullOrEmpty(searchParams.Winner))
+            {
+                query.Match(x => x.Winner == searchParams.Winner);
+            }
 
-            query.PageNumber(req.PageNumber);
-            query.PageSize(req.PageSize);
+            query.PageNumber(searchParams.PageNumber);
+            query.PageSize(searchParams.PageSize);
 
             var result = await query.ExecuteAsync();
 
