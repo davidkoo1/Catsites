@@ -16,6 +16,7 @@
 
 ## TODO:
 ### Frontend
+- Fix then we clear search bar
 - Clear AppPage console
 - Add in right-top current price
 - *mb number of car?(bottom)
