@@ -6,9 +6,8 @@ import React from 'react'
 
 export default function LoginButton() {
   return (
-    <Button
-     outline onClick={() => signIn('id-server', {callbackUrl: '/'})}>
-        Login
-    </Button>
+    <button onClick={() => signIn('id-server', { callbackUrl: '/' })} className='bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded'>
+      Login
+    </button>
   )
 }
