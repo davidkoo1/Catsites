@@ -15,14 +15,14 @@
 
 
 ## TODO:
+- Add logger
 ### Frontend
-- Fix then we clear search bar
 - Clear AppPage console
 - Add in right-top current price
 - *mb number of car?(bottom)
 
 ### Backend
-- Write Testing for Services
+- Write Testing for Services and webTests + (Use fake db)
 - Global Usings
 
 After successful web part creation, create a mobile app using MAUI.
