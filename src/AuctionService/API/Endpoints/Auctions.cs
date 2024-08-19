@@ -11,15 +11,14 @@ public class Auctions : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
-        var auctionGroup = app.MapGroup(this);
-
-        auctionGroup.AllowAnonymous()
+        app.MapGroup(this).AllowAnonymous()
             .MapGet(GetAllAuctions)
             .MapGet(GetAuctionById, "{id}");
-        auctionGroup.RequireAuthorization().MapPost(CreateAuction)
+        app.MapGroup(this).RequireAuthorization().MapPost(CreateAuction)
             .MapPut(UpdateAuction, "{id}")
             .MapDelete(DeleteAuction, "{id}");
     }
+
     public async Task<List<AuctionDto>> GetAllAuctions(ISender sender, string? date)
     {
         return await sender.Send(new GetAuctionsQuery(date));
