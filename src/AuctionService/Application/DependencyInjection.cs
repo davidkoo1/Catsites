@@ -2,6 +2,7 @@
 using Application.Common.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using FluentValidation;
 
 namespace AuctionService.Application
 {
@@ -14,6 +15,8 @@ namespace AuctionService.Application
 
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 
             services.AddScoped<IAuctionRepository, AuctionRepository>();

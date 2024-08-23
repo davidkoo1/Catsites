@@ -15,7 +15,6 @@
 
 
 ## TODO:
-- Add Authorize attribute in mediatr
 - Add logger
 - Add fluent validation
 - Add localization
