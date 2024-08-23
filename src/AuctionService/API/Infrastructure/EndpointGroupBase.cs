@@ -1,4 +1,4 @@
-﻿namespace WebApplication3.API.Infrastructure;
+﻿namespace API.Infrastructure;
 
 public abstract class EndpointGroupBase
 {

@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Application.Common.Security;
 using Contracts;
 using MassTransit;
 using MediatR;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Auctions.Commands.DeleteAuction
 {
+    [Authorize]
     public record DeleteAuctionCommand(Guid Id) : IRequest<bool>;
 
     public class DeleteAuctionCommandHandler : IRequestHandler<DeleteAuctionCommand, bool>

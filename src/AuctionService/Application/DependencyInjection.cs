@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Application.Common.Interfaces;
+using Application.Common.Repository;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace AuctionService.Application
@@ -14,7 +16,7 @@ namespace AuctionService.Application
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
-
+            services.AddScoped<IAuctionRepository, AuctionRepository>();
 
             return services;
         }

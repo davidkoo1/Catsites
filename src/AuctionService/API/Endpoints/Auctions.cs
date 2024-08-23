@@ -3,9 +3,8 @@ using Application.Auctions.Commands.DeleteAuction;
 using Application.Auctions.Commands.UpdateAuction;
 using Application.Auctions.Queries.GetAuctions;
 using AuctionService.Application.DTOs;
-using WebApplication3.API.Infrastructure;
 
-namespace WebApplication3.API.Endpoints;
+namespace API.Endpoints;
 
 public class Auctions : EndpointGroupBase
 {

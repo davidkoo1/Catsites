@@ -19,7 +19,7 @@ namespace AuctionService.Consumers
 
             var auction = await _auctionDbContext.Auctions.FindAsync(context.Message.AuctionId);
 
-            if(context.Message.ItemSold)
+            if (context.Message.ItemSold)
             {
                 auction.Winner = context.Message.Winner;
                 auction.SoldAmount = context.Message.Amount;

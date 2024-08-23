@@ -19,7 +19,7 @@ namespace SearchService.Endpoints
 
     public class SearchEndpoint : Endpoint<SearchParams, Response>
     {
-        
+
         public override void Configure()
         {
             Verbs(Http.GET);

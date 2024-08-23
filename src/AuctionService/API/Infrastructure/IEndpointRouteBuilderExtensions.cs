@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using WebApplication3.API.Infrastructure;
 
-namespace WebApplication3.API.Infrastructure;
+namespace API.Infrastructure;
 
 public static class IEndpointRouteBuilderExtensions
 {

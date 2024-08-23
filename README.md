@@ -15,7 +15,12 @@
 
 
 ## TODO:
+- Add Authorize attribute in mediatr
 - Add logger
+- Add fluent validation
+- Add localization
+- Add role
+- Write configs for Entities
 ### Frontend
 - Clear AppPage console
 - Add in right-top current price
@@ -25,7 +30,12 @@
 - Write Testing for Services and webTests + (Use fake db)
 - Global Usings
 
+Write 3 web part:
+- 1 Nextjs
+- Angular
+- Asp.net core mvc & devexpress/kendoui
 After successful web part creation, create a mobile app using MAUI.
+* Use quartz/questpdf
 
 - [Auction Assets](src/AuctionService/AuctionsItems)
 - [Search Assets](src/SearchService/SearchItems)

@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Application.Common.Security;
 using AuctionService.Application.DTOs;
 using AutoMapper;
 using Contracts;
@@ -9,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Auctions.Commands.UpdateAuction
 {
-    //[Authorize]
+    [Authorize]
     public record UpdateAuctionCommand(Guid Id, UpdateAuctionDto UpdateAuctionDto) : IRequest<bool>;
 
     public class UpdateAuctionCommandHandler : IRequestHandler<UpdateAuctionCommand, bool>

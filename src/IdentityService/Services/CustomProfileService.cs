@@ -1,9 +1,9 @@
-using System.Security.Claims;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Services;
 using IdentityModel;
 using IdentityService.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace IdentityService;
 
@@ -19,7 +19,7 @@ public class CustomProfileService : IProfileService
     public async Task GetProfileDataAsync(ProfileDataRequestContext context)
     {
         var user = await _userManager.GetUserAsync(context.Subject);
-        var existingClaims = await _userManager.GetClaimsAsync(user);   
+        var existingClaims = await _userManager.GetClaimsAsync(user);
 
         var claims = new List<Claim>
         {

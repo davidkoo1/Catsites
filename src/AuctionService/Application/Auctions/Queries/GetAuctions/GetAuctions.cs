@@ -4,6 +4,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Application.Auctions.Queries.GetAuctions
 {
@@ -12,10 +13,10 @@ namespace Application.Auctions.Queries.GetAuctions
 
     public class GetAuctionsQueryHandler : IRequestHandler<GetAuctionsQuery, List<AuctionDto>>
     {
-        private readonly IAuctionDbContext _auctionDbContext;
+        private readonly IAuctionRepository _auctionDbContext;
         private readonly IMapper _mapper;
 
-        public GetAuctionsQueryHandler(IAuctionDbContext auctionDbContext, IMapper mapper)
+        public GetAuctionsQueryHandler(IAuctionRepository auctionDbContext, IMapper mapper)
         {
             _auctionDbContext = auctionDbContext;
             _mapper = mapper;
@@ -23,12 +24,8 @@ namespace Application.Auctions.Queries.GetAuctions
 
         public async Task<List<AuctionDto>> Handle(GetAuctionsQuery request, CancellationToken cancellationToken)
         {
-            var query = _auctionDbContext.Auctions.OrderBy(x => x.Item.Make).AsQueryable();
 
-            if (!string.IsNullOrEmpty(request.date))
-                query = query.Where(x => x.LastUpdatedAt.CompareTo(DateTime.Parse(request.date).ToUniversalTime()) > 0);
-
-            return await query.ProjectTo<AuctionDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+            return await _auctionDbContext.GetAuctionsAsync(request.date);
 
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Application.Common.Security;
 using AuctionService.Application.DTOs;
 using AuctionService.Domain.Entities;
 using AutoMapper;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Application.Auctions.Commands.CreateAuction
 {
-    //[Authorize]
+    [Authorize]
     public record CreateAuctionCommand(CreateAuctionDTO CreateAuctionDto) : IRequest<Tuple<bool, AuctionDto>>;
 
     public class CreateAuctionCommandHandler : IRequestHandler<CreateAuctionCommand, Tuple<bool, AuctionDto>>
