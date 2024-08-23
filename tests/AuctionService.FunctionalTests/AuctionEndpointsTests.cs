@@ -5,7 +5,10 @@ using Application.Auctions.Commands.UpdateAuction;
 using Application.Auctions.Queries.GetAuctions;
 using AuctionService.Application.DTOs;
 using AutoFixture;
+using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Moq;
 
@@ -49,7 +52,7 @@ namespace AuctionService.FunctionalTests
                 .ReturnsAsync(auction);
 
             // Act
-            var result = await _endpoints.GetAuctionById(_mediatorMock.Object, auction.Id);
+            var result = await _endpoints.GetAuctionById(_mediatorMock.Object, auction.Id.ToString());
 
             // Assert
             var okResult = Assert.IsType<Ok<AuctionDto>>(result);
@@ -65,7 +68,7 @@ namespace AuctionService.FunctionalTests
                 .ReturnsAsync((AuctionDto?)null);
 
             // Act
-            var result = await _endpoints.GetAuctionById(_mediatorMock.Object, Guid.NewGuid());
+            var result = await _endpoints.GetAuctionById(_mediatorMock.Object, Guid.NewGuid().ToString());
 
             // Assert
             Assert.IsType<NotFound>(result);
@@ -77,13 +80,16 @@ namespace AuctionService.FunctionalTests
             // Arrange
             var createAuctionDto = _fixture.Create<CreateAuctionDTO>();
             var newAuction = _fixture.Create<AuctionDto>();
+            var validatorMock = new Mock<IValidator<CreateAuctionDTO>>();
 
-            // Используем Tuple.Create для создания кортежа
+            validatorMock.Setup(v => v.ValidateAsync(createAuctionDto, It.IsAny<CancellationToken>()))
+                         .ReturnsAsync(new ValidationResult());
+
             _mediatorMock.Setup(sender => sender.Send(It.IsAny<CreateAuctionCommand>(), default))
-                .ReturnsAsync(Tuple.Create(true, newAuction));
+                         .ReturnsAsync(Tuple.Create(true, newAuction));
 
             // Act
-            var result = await _endpoints.CreateAuction(_mediatorMock.Object, createAuctionDto);
+            var result = await _endpoints.CreateAuction(_mediatorMock.Object, createAuctionDto, validatorMock.Object);
 
             // Assert
             var createdResult = Assert.IsType<Created<AuctionDto>>(result);
@@ -92,23 +98,28 @@ namespace AuctionService.FunctionalTests
             _mediatorMock.Verify(x => x.Send(It.IsAny<CreateAuctionCommand>(), default), Times.Once);
         }
 
+
         [Fact]
         public async Task CreateAuction_FailedSave_Returns400BadRequest()
         {
             // Arrange
             var createAuctionDto = _fixture.Create<CreateAuctionDTO>();
+            var validatorMock = new Mock<IValidator<CreateAuctionDTO>>();
 
-            // Используем Tuple.Create для создания кортежа
+            validatorMock.Setup(v => v.ValidateAsync(createAuctionDto, It.IsAny<CancellationToken>()))
+                         .ReturnsAsync(new ValidationResult());
+
             _mediatorMock.Setup(sender => sender.Send(It.IsAny<CreateAuctionCommand>(), default))
-                .ReturnsAsync(Tuple.Create(false, (AuctionDto?)null));
+                         .ReturnsAsync(Tuple.Create(false, (AuctionDto?)null));
 
             // Act
-            var result = await _endpoints.CreateAuction(_mediatorMock.Object, createAuctionDto);
+            var result = await _endpoints.CreateAuction(_mediatorMock.Object, createAuctionDto, validatorMock.Object);
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequest<string>>(result);
             Assert.Equal("Could not save changes to the DB", badRequestResult.Value);
         }
+
 
 
         [Fact]
@@ -117,14 +128,17 @@ namespace AuctionService.FunctionalTests
             // Arrange
             var auction = _fixture.Create<AuctionDto>();
             var updateAuctionDto = _fixture.Create<UpdateAuctionDto>();
+            var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
+
+            httpContextAccessorMock.Setup(x => x.HttpContext!.User.Identity!.Name).Returns(auction.Seller);
 
             _mediatorMock.Setup(sender => sender.Send(It.IsAny<GetAuctionQuery>(), default))
-                .ReturnsAsync(auction);
+                         .ReturnsAsync(auction);
             _mediatorMock.Setup(sender => sender.Send(It.IsAny<UpdateAuctionCommand>(), default))
-                .ReturnsAsync(true);
+                         .ReturnsAsync(true);
 
             // Act
-            var result = await _endpoints.UpdateAuction(_mediatorMock.Object, auction.Id, updateAuctionDto);
+            var result = await _endpoints.UpdateAuction(_mediatorMock.Object, auction.Id, updateAuctionDto, httpContextAccessorMock.Object);
 
             // Assert
             Assert.IsType<Ok>(result);
@@ -135,16 +149,18 @@ namespace AuctionService.FunctionalTests
         {
             // Arrange
             _mediatorMock.Setup(sender => sender.Send(It.IsAny<GetAuctionQuery>(), default))
-                .ReturnsAsync((AuctionDto?)null);
+                         .ReturnsAsync((AuctionDto?)null);
 
             var updateAuctionDto = _fixture.Create<UpdateAuctionDto>();
+            var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
 
             // Act
-            var result = await _endpoints.UpdateAuction(_mediatorMock.Object, Guid.NewGuid(), updateAuctionDto);
+            var result = await _endpoints.UpdateAuction(_mediatorMock.Object, Guid.NewGuid(), updateAuctionDto, httpContextAccessorMock.Object);
 
             // Assert
             Assert.IsType<NotFound>(result);
         }
+
 
         [Fact]
         public async Task DeleteAuction_WithValidUser_ReturnsOkResponse()
