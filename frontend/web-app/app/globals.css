@@ -46,3 +46,8 @@ body {
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }
+
+/*DataPicker*/
+.react-datepicker-wrapper {
+  width: 100%;
+}
