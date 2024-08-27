@@ -1,9 +1,11 @@
 'use client'
 
+import { useParamsStore } from '@/hooks/useParamsStore'
 import { Button, Dropdown, DropdownItem } from 'flowbite-react'
 import { User } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 import { AiFillCar, AiFillTrophy, AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai'
 import { HiBell, HiUser } from 'react-icons/hi'
@@ -11,10 +13,26 @@ import { HiCog } from 'react-icons/hi2'
 
 
 type Props = {
-  user: Partial<User>
+  user: User
 }
 
 export default function UserActions({ user }: Props) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const setParams = useParamsStore(state => state.setParams);
+
+  function setWinner()
+  {
+    setParams({winner: user.username, seller: undefined})
+    if (pathname !== '/') router.push('/');
+  }
+
+  function setSeller()
+  {
+    setParams({winner: undefined, seller: user.username})
+    if (pathname !== '/') router.push('/');
+  }
+
   return (
     // <button className='bg-white hover:bg-gray-300 text-black font-semibold py-2 px-4 rounded'>
     //   <Link href='/session'>
@@ -27,18 +45,14 @@ export default function UserActions({ user }: Props) {
           Notification
         </Link>
       </DropdownItem>
-      <DropdownItem icon={HiUser}>
-        <Link href='/'>
+      <DropdownItem icon={HiUser} onClick={setSeller}>
           My Auctions
-        </Link>
       </DropdownItem>
-      <DropdownItem icon={AiFillTrophy}>
-        <Link href='/'>
+      <DropdownItem icon={AiFillTrophy} onClick={setWinner}>
           Aucions won
-        </Link>
       </DropdownItem>
       <DropdownItem icon={AiFillCar}>
-        <Link href='/'>
+        <Link href='/auctions/create'>
           Sell my car
         </Link>
       </DropdownItem>

@@ -21,11 +21,14 @@
 - Add role
 - Write configs for Entities
 ### Frontend
+- User role(User, Moderator, Admin)
+- use popup modal
 - Clear AppPage console
 - Add in right-top current price
 - *mb number of car?(bottom)
 
 ### Backend
+- Write Health-checks
 - Write Testing for Services and webTests + (Use fake db)
 - Global Usings
 
