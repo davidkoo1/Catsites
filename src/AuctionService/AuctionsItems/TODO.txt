@@ -1,3 +1,0 @@
-Seed(+Configs)/DBInitializer
-RabbitMq
-Autorize attribute

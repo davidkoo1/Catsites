@@ -31,6 +31,7 @@
 - Write Health-checks
 - Write Testing for Services and webTests + (Use fake db)
 - Global Usings
+# Try fix CA+MinimalAPi+CQRS+RabbitMq for AuctionService
 
 Write 3 web part:
 - 1 Nextjs

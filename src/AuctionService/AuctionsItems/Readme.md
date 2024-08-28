@@ -3,6 +3,7 @@
 - обновить миграцию для бд
 - запустить докер
 - добавить бд руками localhost, postgres, postrgerpw, standart, auctions, localhost.
+- P.S Как оказалось нужно просто сделать build docker file
 # Auction Service
 
 <p align="center">
@@ -33,12 +34,10 @@ The service also interacts with other components through events such as auction 
 ### **More in [Specification](./auctionSvcSpec.pdf) file.**
 
 ## TODO:
-- Seed (+ConfigsForEntities)/DBInitializer(InInfrastructure)
-- Authorize attribute
+- Return CA+MinimalAPI+CQRS+EDA--need work
 
 ## Additional Technologies:
-- Use Clean Code Architecture(With Mediat+CQRS pattern)
-- Use EndpointsAPI
+
 
 ## Auction Service Specification
 
