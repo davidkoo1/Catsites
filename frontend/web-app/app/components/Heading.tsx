@@ -4,17 +4,20 @@ type Props = {
     title: string
     subtitle?: string
     center?: boolean
+    textColor?: string
 }
 
-export default function Heading({ title, subtitle, center }: Props) {
+export default function Heading({ title, subtitle, center, textColor = 'text-black' }: Props) {
   return (
     <div className={center ? 'text-center' : 'text-start'}>
-        <div className='text-2xl font-bold text-black'>
+        <div className={`text-2xl font-bold ${textColor}`}>
             {title}
         </div>
-        <div className='font-light text-black mt-2'>
-            {subtitle}
-        </div>
+        {subtitle && (
+            <div className={`font-light ${textColor} mt-2`}>
+                {subtitle}
+            </div>
+        )}
     </div>
   )
 }
