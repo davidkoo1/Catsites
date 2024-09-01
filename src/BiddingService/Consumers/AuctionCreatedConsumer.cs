@@ -9,7 +9,6 @@ public class AuctionCreatedConsumer : IConsumer<AuctionCreated>
 {
     public async Task Consume(ConsumeContext<AuctionCreated> context)
     {
-        Console.WriteLine($"Received AuctionCreated message with Id: {context.Message.Id}");
 
         var auction = new Auction
         {
@@ -20,8 +19,6 @@ public class AuctionCreatedConsumer : IConsumer<AuctionCreated>
         };
 
         await auction.SaveAsync();
-
-        Console.WriteLine($"Auction with Id: {context.Message.Id} saved successfully.");
     }
 
 }
