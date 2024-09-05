@@ -51,10 +51,18 @@ export default function BidList({ user, auction }: Props) {
     return (
         <div className='border-2 rounded-lg p-2 bg-gray-100'>
             <div className='py-2 px-4'>
-                <div className='sticky top-0 p-2'>
-                    <Heading title={`Current high bid is $${numberWithCommas(highBid)}`} />
+                <div className='flex items-center justify-between'>
+                    <Heading title={`Current high bid is`} />
+                    <div className={`border-2 border-gray-700 text-white py-1 px-2 rounded-lg flex justify-center w-1/5 
+    ${auction.currentHighBid >= auction.reservePrice
+                            ? (bids.at(-1)?.bidder === user?.username ? 'bg-green-500' : 'bg-red-500')
+                            : 'bg-amber-500'}`}>
+                        {numberWithCommas(highBid)} {bids.at(-1)?.bidder}
+                    </div>
+
                 </div>
             </div>
+
 
             <div className='overflow-auto h-[245px] flex flex-col-reverse px-2 mb-2 bg-gray-500 rounded-lg'>
                 {bids.length === 0 ? (

@@ -15,15 +15,15 @@ export default function BidItem({ username, bid }: Props) {
         let text = '';
         switch (bid.bidStatus) {
             case 'Accepted':
-                bgColor = bid.bidder !== username ? 'bg-green-200' : 'bg-gray-200'
+                bgColor = bid.bidder !== username ? 'bg-green-200' : 'bg-green-400'
                 text = 'Bid accepted'
                 break;
             case 'AcceptedBelowReserve':
-                bgColor = 'bg-amber-500'
+                bgColor = bid.bidder !== username ? 'bg-amber-500' : 'bg-amber-400'
                 text = 'Reserve not met'
                 break;
             case 'TooLow':
-                bgColor = 'bg-red-200'
+                bgColor = bid.bidder !== username ? 'bg-red-200' : 'bg-red-400'
                 text = 'Bid was too low'
                 break;
             default:
