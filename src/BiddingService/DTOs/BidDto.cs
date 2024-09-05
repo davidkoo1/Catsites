@@ -9,6 +9,6 @@ namespace BiddingService.DTOs
         public required string Bidder { get; set; }
         public DateTime BidTime { get; set; }
         public int Amount { get; set; }
-        public BidStatus BidStatus { get; set; }
+        public string BidStatus { get; set; }
     }
 }
