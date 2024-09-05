@@ -34,7 +34,6 @@
 # Try fix CA+MinimalAPi+CQRS+RabbitMq for AuctionService
 
 Write 3 web part:
-- 1 Nextjs
 - Angular
 - Asp.net core mvc & devexpress/kendoui
 After successful web part creation, create a mobile app using MAUI.
