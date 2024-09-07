@@ -11,6 +11,7 @@ import BidItem from './BidItem'
 import { numberWithCommas } from '@/app/lib/numberWithComma'
 import EmptyFilter from '@/app/components/EmptyFilter'
 import BidForm from './BidForm'
+
 type Props = {
     user: User | null
     auction: Auction
@@ -24,11 +25,16 @@ export default function BidList({ user, auction }: Props) {
     const setOpen = useBidStore(state => state.setOpen);
     const openForBids = new Date(auction.auctionEnd) > new Date();
 
-    const highBid = bids.reduce((prev, current) => prev > current.amount
-        ? prev
-        : current.bidStatus.includes('Accepted')
-            ? current.amount
-            : prev, 0)
+    // Calculate highest bid and bidder
+    const { highBid, highBidder } = bids.reduce((acc, current) => {
+        if (current.bidStatus.includes('Accepted') && current.amount > acc.highBid) {
+            return {
+                highBid: current.amount,
+                highBidder: current.bidder
+            };
+        }
+        return acc;
+    }, { highBid: 0, highBidder: '' });
 
     useEffect(() => {
         getBidsForAuction(auction.id)
@@ -37,10 +43,12 @@ export default function BidList({ user, auction }: Props) {
                     throw res.error
                 }
                 setBids(res as Bid[]);
-            }).catch(err => {
+            })
+            .catch(err => {
                 toast.error(err.message);
-            }).finally(() => setLoading(false))
-    }, [auction.id, setLoading, setBids])
+            })
+            .finally(() => setLoading(false));
+    }, [auction.id, setBids]);
 
     useEffect(() => {
         setOpen(openForBids);
@@ -55,25 +63,21 @@ export default function BidList({ user, auction }: Props) {
                     <Heading title={`Current high bid is`} />
                     <div className={`border-2 border-gray-700 text-white py-1 px-2 rounded-lg flex justify-center w-1/5 
     ${auction.currentHighBid >= auction.reservePrice
-                            ? (bids.at(-1)?.bidder === user?.username ? 'bg-green-500' : 'bg-red-500')
+                            ? (highBidder === user?.username ? 'bg-green-500' : 'bg-red-500')
                             : 'bg-amber-500'}`}>
-                        {numberWithCommas(highBid)} {bids.at(-1)?.bidder}
+                        {numberWithCommas(highBid)} {highBidder}
                     </div>
-
                 </div>
             </div>
-
 
             <div className='overflow-auto h-[245px] flex flex-col-reverse px-2 mb-2 bg-gray-500 rounded-lg'>
                 {bids.length === 0 ? (
                     <EmptyFilter title='No bids for this item'
                         subtitle='Please feel free to make a bid' />
                 ) : (
-                    <>
-                        {bids.map(bid => (
-                            <BidItem key={bid.id} username={user?.username} bid={bid} />
-                        ))}
-                    </>
+                    bids.map(bid => (
+                        <BidItem key={bid.id} username={user?.username} bid={bid} />
+                    ))
                 )}
             </div>
 
@@ -86,7 +90,7 @@ export default function BidList({ user, auction }: Props) {
                     <div className='flex items-center justify-center p-2 text-lg font-semibold'>
                         Please login to make a bid
                     </div>
-                ) : user && user.username === auction.seller ? (
+                ) : user.username === auction.seller ? (
                     <div className='flex items-center justify-center p-2 text-lg font-semibold'>
                         You cannot bid on your own auction
                     </div>
