@@ -29,11 +29,17 @@ export default function BidForm({ auctionId, highBid }: Props) {
         }).catch(err => toast.error(err.message));
     }
 
-    function handlePercentageBid(percentage: number) {
+    function handlePercentageBid(bidIncrease: number, increaseStatus: number) {
         /*if 0, 
         or currentbid*percetage <= highBid 
         or while > 10$ 5% = +5$ */
-        const bidAmount = Math.round(highBid + (highBid * percentage));
+        let bidAmount;
+        if (increaseStatus === 0) {
+            bidAmount = Math.round(highBid + (highBid * bidIncrease));
+        }
+        else if (increaseStatus == 1) {
+            bidAmount = Math.round(highBid + bidIncrease);
+        }
         setValue('amount', bidAmount);
         handleSubmit(onSubmit)();
     }
@@ -49,47 +55,73 @@ export default function BidForm({ auctionId, highBid }: Props) {
                 />
             </form>
 
-            <div className="flex w-full">
-                <button
-                    className="border border-white bg-amber-500 text-white p-1 rounded text-xl font-bold w-1/3"
-                    onClick={() => handlePercentageBid(0.05)}
-                >
-                    ~5%
-                </button>
-                <button
-                    className="border border-white bg-amber-500 text-white p-1 rounded text-xl font-bold w-1/3"
-                    onClick={() => handlePercentageBid(0.1)}
-                >
-                    ~10%
-                </button>
-                <button
-                    className="border border-white bg-amber-500 text-white p-1 rounded text-xl font-bold w-1/3"
-                    onClick={() => handlePercentageBid(0.15)}
-                >
-                    ~15%
-                </button>
-            </div>
+            <div>
+                {highBid > 10 ? (
+                    <div className="flex w-full">
+                        <button
+                            className="border border-white bg-amber-500 text-white p-1 rounded text-xl font-bold w-1/3"
+                            onClick={() => handlePercentageBid(0.05, 0)}
+                        >
+                            ~5%
+                        </button>
+                        <button
+                            className="border border-white bg-amber-500 text-white p-1 rounded text-xl font-bold w-1/3"
+                            onClick={() => handlePercentageBid(0.1, 0)}
+                        >
+                            ~10%
+                        </button>
+                        <button
+                            className="border border-white bg-amber-500 text-white p-1 rounded text-xl font-bold w-1/3"
+                            onClick={() => handlePercentageBid(0.15, 0)}
+                        >
+                            ~15%
+                        </button>
+                        <button
+                            className="border border-white bg-green-500 text-white p-1 rounded text-xl font-bold w-1/3"
+                            onClick={() => handlePercentageBid(100, 1)}
+                        >
+                            +100$
+                        </button>
+                        <button
+                            className="border border-white bg-green-500 text-white p-1 rounded text-xl font-bold w-1/3"
+                            onClick={() => handlePercentageBid(500, 1)}
+                        >
+                            +500$
+                        </button>
+                        <button
+                            className="border border-white bg-green-500 text-white p-1 rounded text-xl font-bold w-1/3"
+                            onClick={() => handlePercentageBid(1000, 1)}
+                        >
+                            +1000$
+                        </button>
+                    </div>
+                ) : (
+                    <div className="flex w-full">
+                        <button
+                            className="border border-white bg-green-500 text-white p-1 rounded text-xl font-bold w-1/3"
+                            onClick={() => handlePercentageBid(100, 1)}
+                        >
+                            +100$
+                        </button>
+                        <button
+                            className="border border-white bg-green-500 text-white p-1 rounded text-xl font-bold w-1/3"
+                            onClick={() => handlePercentageBid(500, 1)}
+                        >
+                            +500$
+                        </button>
+                        <button
+                            className="border border-white bg-green-500 text-white p-1 rounded text-xl font-bold w-1/3"
+                            onClick={() => handlePercentageBid(1000, 1)}
+                        >
+                            +1000$
+                        </button>
+                    </div>
+                )}
 
-            <div className="flex w-full">
-                <button
-                    className="border border-white bg-green-500 text-white p-1 rounded text-xl font-bold w-1/3"
-                    onClick={() => handlePercentageBid(0.05)}
-                >
-                    +100$
-                </button>
-                <button
-                    className="border border-white bg-green-500 text-white p-1 rounded text-xl font-bold w-1/3"
-                    onClick={() => handlePercentageBid(0.1)}
-                >
-                    +500$
-                </button>
-                <button
-                    className="border border-white bg-green-500 text-white p-1 rounded text-xl font-bold w-1/3"
-                    onClick={() => handlePercentageBid(0.15)}
-                >
-                    +1000$
-                </button>
+
+
+
             </div>
-        </div>
-    )
+            </div>
+            )
 }
