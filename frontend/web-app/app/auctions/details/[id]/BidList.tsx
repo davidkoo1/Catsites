@@ -5,6 +5,7 @@ import Heading from '@/app/components/Heading'
 import { useBidStore } from '@/hooks/useBidStore'
 import { Auction, Bid } from '@/types'
 import { User } from 'next-auth'
+import { FaSpinner } from 'react-icons/fa';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import BidItem from './BidItem'
@@ -54,7 +55,11 @@ export default function BidList({ user, auction }: Props) {
         setOpen(openForBids);
     }, [openForBids, setOpen]);
 
-    if (loading) return <span>Loading bids...</span>
+    if (loading) return (
+        <div className="flex justify-center items-center">
+          <FaSpinner className="animate-spin text-4xl text-blue-500" />
+        </div>
+      );
 
     return (
         <div className='border-2 rounded-lg p-2 bg-gray-100'>

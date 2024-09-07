@@ -24,7 +24,7 @@ export default function AuctionFinishedToast({ auction, finishedAuction }: Props
                     <span>Auction for {auction.make} {auction.model} has finished</span>
                     {finishedAuction.itemSold && finishedAuction.amount ? (
                         <p>Congrats to {finishedAuction.winner} who has won this auction for 
-                            $${numberWithCommas(finishedAuction.amount)}</p>
+                            ${numberWithCommas(finishedAuction.amount)}</p>
                     ) : (
                         <p>This item did not sell</p>
                     )}

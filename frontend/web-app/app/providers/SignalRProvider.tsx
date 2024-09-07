@@ -34,7 +34,7 @@ export default function SignalRProvider({ children, user }: Props) {
         if (connection) {
             connection.start()
                 .then(() => {
-                    console.log('Connected to notification hub');
+                    //console.log('Connected to notification hub');
 
                     connection.on('BidPlaced', (bid: Bid) => {
                         if (bid.bidStatus.includes('Accepted')) {
@@ -43,26 +43,27 @@ export default function SignalRProvider({ children, user }: Props) {
                         addBid(bid);
                     });
 
-                    connection.on('AuctionCreated', (auction: Auction) => {
-                        if (user?.username !== auction.seller) {
-                            return toast(<AuctionCreatedToast auction={auction} />, 
-                                {duration: 10000})
-                        }
-                    });
+                    if (user !== null) {
+                        connection.on('AuctionCreated', (auction: Auction) => {
+                            if (user?.username !== auction.seller) {
+                                return toast(<AuctionCreatedToast auction={auction} />,
+                                    { duration: 10000 })
+                            }
+                        });
 
-                    connection.on('AuctionFinished', (finishedAuction: AuctionFinished) => {
-                        const auction = getDetailedViewData(finishedAuction.auctionId);
-                        return toast.promise(auction, {
-                            loading: 'Loading',
-                            success: (auction) => 
-                                <AuctionFinishedToast 
-                                    finishedAuction={finishedAuction} 
-                                    auction={auction}
-                                />,
-                            error: (err) => 'Auction finished!'
-                        }, {success: {duration: 10000, icon: null}})
-                    })
-
+                        connection.on('AuctionFinished', (finishedAuction: AuctionFinished) => {
+                            const auction = getDetailedViewData(finishedAuction.auctionId);
+                            return toast.promise(auction, {
+                                loading: 'Loading',
+                                success: (auction) =>
+                                    <AuctionFinishedToast
+                                        finishedAuction={finishedAuction}
+                                        auction={auction}
+                                    />,
+                                error: (err) => 'Auction finished!'
+                            }, { success: { duration: 10000, icon: null } })
+                        })
+                    }
 
                 }).catch(error => console.log(error));
         }

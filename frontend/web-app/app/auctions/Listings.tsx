@@ -12,6 +12,7 @@ import EmptyFilter from '../components/EmptyFilter';
 import Link from 'next/link';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { User } from 'next-auth'
+import { FaSpinner } from 'react-icons/fa';
 import { useAuctionStore } from '@/hooks/useAuctionStore';
 
 type Props = {
@@ -54,7 +55,11 @@ export default function Listings({ user }: Props) {
         })
     }, [url])
 
-    if (loading) return <div>Loading...</div>
+    if (loading) return (
+        <div className="flex justify-center items-center">
+          <FaSpinner className="animate-spin text-4xl text-blue-500" />
+        </div>
+      );
 
     return (
         <>
