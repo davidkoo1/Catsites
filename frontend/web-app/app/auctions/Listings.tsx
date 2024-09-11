@@ -41,8 +41,7 @@ export default function Listings({ user }: Props) {
     const setParams = useParamsStore(state => state.setParams);
     const url = qs.stringifyUrl({ url: '', query: params })
 
-    // Assuming you have a way to get the current user's username
-    const currentUsername = user?.username; // Replace with the actual logic to get the current user's username
+    const currentUsername = user?.username;
 
     function setPageNumber(pageNumber: number) {
         setParams({ pageNumber })

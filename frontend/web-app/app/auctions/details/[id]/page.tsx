@@ -8,6 +8,7 @@ import { getCurrentUser } from '@/app/actions/authActions';
 import EditButton from './EditButton';
 import DeleteButton from './DeleteButton';
 import BidList from './BidList';
+import Listings from '../../Listings';
 
 export default async function Details({ params }: { params: { id: string } }) {
   const data = await getDetailedViewData(params.id);
@@ -44,6 +45,11 @@ export default async function Details({ params }: { params: { id: string } }) {
       <div className='mt-3 grid grid-cols-1 rounded-lg'>
         <DetailedSpecs auction={data} />
       </div>
+
+      {/* TODO THIS by make */}
+      <div className='mt-3 grid grid-cols-1 rounded-lg'>
+      <Listings user={user} />
+    </div>
 
     </div>
   )
