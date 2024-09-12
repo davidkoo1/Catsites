@@ -2,8 +2,10 @@
 
 import { useBidStore } from "@/hooks/useBidStore";
 import { Auction } from "@/types";
+import { Dropdown, DropdownItem } from "flowbite-react";
 import { useRouter } from "next/navigation";
-import { FaCar, FaTag, FaClock, FaUser, FaPalette, FaTrophy, FaCalendarAlt, FaRoad } from 'react-icons/fa';
+import toast from "react-hot-toast";
+import { FaTag, FaClock, FaUser, FaPalette, FaTrophy, FaCalendarAlt, FaRoad, FaCopy, FaEnvelope, FaFileCsv, FaShareAlt, FaPrint, FaHeart, FaHeartBroken, FaArrowRight } from 'react-icons/fa';
 
 type Props = {
     auction: Auction;
@@ -20,9 +22,25 @@ export default function DetailedSpecs({ auction }: Props) {
             ? current.amount
             : prev, 0);
 
-
     const handleAllAuctionsClick = () => {
         router.push('/');
+    };
+
+    const handleCopyLink = () => {
+        /*navigator.clipboard.writeText(window.location.href);
+        alert('Link copied to clipboard!');
+        */
+        toast.success('Link copied to clipboard!');
+        navigator.clipboard.writeText(window.location.href);
+    };
+
+    const handleExportCSV = () => {
+        // Dummy function for exporting to CSV
+        alert('Exporting to CSV...');
+    };
+
+    const handleSendEmail = () => {
+        window.location.href = `mailto:?subject=Check this auction&body=Check out this auction: ${window.location.href}`;
     };
 
     return (
@@ -30,17 +48,47 @@ export default function DetailedSpecs({ auction }: Props) {
             {/* Header Section */}
             <div className="mb-6 border-b border-gray-200 pb-4 flex items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900 cursor-pointer hover:underline">Auction Details</h2>
-                    {/* <p className="text-gray-600 mt-1">Explore all the information about this auction.</p> */}
+                    <h2 className="text-2xl font-bold text-gray-900">Auction Details</h2>
                 </div>
-                <div>
+
+                <div className="flex items-center">
+                    {/*ONLY FOT LOGIN users Wishlist Button  */}
+                    <div className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center">
+                        <FaHeart className="mr-2" />
+                        <FaHeartBroken className="mr-2" />
+                        <span>Wishlist</span>
+                    </div>
+
+                    {/* Share Dropdown */}
+                    <div className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <Dropdown label={<div className="flex items-center"><FaShareAlt className="mr-2" />Share</div>} inline>
+                            <DropdownItem icon={FaCopy} onClick={handleCopyLink}>
+                                Copy Link
+                            </DropdownItem>
+                            <DropdownItem icon={FaFileCsv}> {/* onClick={handleExportCSV} */}
+                                Export to CSV
+                            </DropdownItem>
+                            <DropdownItem icon={FaEnvelope}> {/* onClick={handleSendEmail} */}
+                                Send via Email
+                            </DropdownItem>
+                            <DropdownItem icon={FaPrint}> {/* onClick={() => window.print()} */}
+                                Print
+                            </DropdownItem>
+                        </Dropdown>
+                    </div>
+
                     <button
                         onClick={handleAllAuctionsClick}
-                        className="ml-4 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+                        className="ml-4 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 flex items-center"
                     >
                         View All Auctions
+                        <FaArrowRight className="ml-2" />
                     </button>
                 </div>
+
+
+
+
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

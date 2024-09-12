@@ -40,11 +40,16 @@ export default function UserActions({ user }: Props) {
     //   </Link>
     // </button>
     <Dropdown label={`Welcome ${user.name}`} inline>
+      {/* <DropdownItem icon={HiBell}>
+        <Link href='/'>
+          Wishlist
+        </Link>
+      </DropdownItem>
       <DropdownItem icon={HiBell}>
         <Link href='/'>
           Notification
         </Link>
-      </DropdownItem>
+      </DropdownItem> */}
       <DropdownItem icon={HiUser} onClick={setSeller}>
           My Auctions
       </DropdownItem>

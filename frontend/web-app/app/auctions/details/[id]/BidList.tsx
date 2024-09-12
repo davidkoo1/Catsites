@@ -86,7 +86,7 @@ export default function BidList({ user, auction }: Props) {
                 )}
             </div>
 
-            <div className='px-2 pb-2 text-gray-500'>
+            <div className='px-2 pb-2 text-gray-300'>
                 {!open ? (
                     <div className='flex items-center justify-center p-2 text-lg font-semibold'>
                         This auction has finished

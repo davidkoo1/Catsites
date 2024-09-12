@@ -62,3 +62,28 @@ body {
       @apply flex-grow pl-5 bg-transparent focus:outline-none border-transparent focus:border-transparent focus:ring-0
   }
 }
+
+/*Print
+@media print {
+  button, .dropdown {
+      display: none;
+  }
+
+  .grid {
+      display: block;
+  }
+
+  body {
+      font-size: 12pt;
+      color: black;
+  }
+
+  .shadow-lg {
+      box-shadow: none;
+  }
+
+  .p-6 {
+      padding: 12px;
+  }
+}
+*/
