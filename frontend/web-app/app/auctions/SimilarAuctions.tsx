@@ -16,15 +16,16 @@ import { FaSpinner } from 'react-icons/fa';
 import { useAuctionStore } from '@/hooks/useAuctionStore';
 
 type Props = {
-    user: User
+    currentAuctionId: string
+    make: string
 }
 
-export default function Listings({ user }: Props) {
+export default function SimilarAuctions({ currentAuctionId, make }: Props) {
     const [loading, setLoading] = useState(true)
     const params = useParamsStore(useShallow(state => ({
         pageNumber: state.pageNumber,
-        pageSize: state.pageSize,
-        searchTerm: state.searchTerm,
+        pageSize: 4,
+        searchTerm: make,
         orderBy: state.orderBy,
         filterBy: state.filterBy,
         seller: state.seller,
@@ -40,8 +41,6 @@ export default function Listings({ user }: Props) {
 
     const setParams = useParamsStore(state => state.setParams);
     const url = qs.stringifyUrl({ url: '', query: params })
-
-    const currentUsername = user?.username;
 
     function setPageNumber(pageNumber: number) {
         setParams({ pageNumber })
@@ -63,30 +62,23 @@ export default function Listings({ user }: Props) {
     return (
         <>
             <Filters />
-            {data.totalCount === 0 ? (
+            {data.totalCount === 0 || data.totalCount === 1 ? (
                 <EmptyFilter showReset />
             ) : (
                 <>
                     <div className='grid grid-cols-4 gap-6'>
-                        {params.seller && currentUsername && params.seller === currentUsername && (
-                            <Link href='/auctions/create' className='flex flex-col items-center justify-center text-center text-gray-100 h-full w-full'>
-                                <span className='mb-2'>My Auction</span>
-                                <div className='flex items-center justify-center'>
-                                    <AiOutlinePlusCircle size={50} />
-                                </div>
-                                <span className='mt-2'>Add New Auction</span>
-                            </Link>
-                        )}
-                        {data.auctions.map(auction => (
-                            <AuctionCard auction={auction} key={auction.id} />
-                        ))}
+                        {data.auctions
+                            .filter(auction => auction.id !== currentAuctionId)
+                            .map(auction => (
+                                <AuctionCard auction={auction} key={auction.id} />
+                            ))
+                        }
                     </div>
                     {data.pageCount > 1 && (
                         <div className='flex justify-center mt-4'>
                             <AppPagination pageChanged={setPageNumber} currentPage={params.pageNumber} pageCount={data.pageCount} />
                         </div>
                     )}
-
                 </>
 
             )}

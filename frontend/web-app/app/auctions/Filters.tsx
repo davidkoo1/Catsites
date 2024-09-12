@@ -1,5 +1,6 @@
 import { useParamsStore } from '@/hooks/useParamsStore';
 import { Button, ButtonGroup } from 'flowbite-react';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import { AiOutlineClockCircle, AiOutlineSortAscending } from 'react-icons/ai';
 import { BsFillStopCircleFill, BsStopwatch, BsStopwatchFill } from 'react-icons/bs';
@@ -45,11 +46,14 @@ const filterButtons = [
 ]
 
 
+
+
 export default function Filters() {
     const pageSize = useParamsStore(state => state.pageSize);
     const setParams = useParamsStore(state => state.setParams);
     const orderBy = useParamsStore(state => state.orderBy);
     const filterBy = useParamsStore(state => state.filterBy);
+    const pathname = usePathname();
 
     return (
         <div className='flex justify-between items-center mb-4'>
@@ -87,24 +91,25 @@ export default function Filters() {
                     ))}
                 </Button.Group>
             </div>
-
-            <div>
-                <span className='uppercase text-sm text-gray-100 mr-2'>
-                    Page size
-                </span>
-                <ButtonGroup>
-                    {pageSizeButtons.map((value, i) => (
-                        <Button
-                            key={i}
-                            onClick={() => setParams({ pageSize: value })}
-                            color={`${pageSize === value ? 'red' : 'white'}`}
-                        //className="no-rounded"
-                        >
-                            {value}
-                        </Button>
-                    ))}
-                </ButtonGroup>
-            </div>
+            {pathname === '/' && (
+                <div>
+                    <span className='uppercase text-sm text-gray-100 mr-2'>
+                        Page size
+                    </span>
+                    <ButtonGroup>
+                        {pageSizeButtons.map((value, i) => (
+                            <Button
+                                key={i}
+                                onClick={() => setParams({ pageSize: value })}
+                                color={`${pageSize === value ? 'red' : 'white'}`}
+                            //className="no-rounded"
+                            >
+                                {value}
+                            </Button>
+                        ))}
+                    </ButtonGroup>
+                </div>
+            )}
         </div>
     )
 }
