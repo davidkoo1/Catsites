@@ -1,19 +1,20 @@
-using FastEndpoints;
+using System.Net;
 using MassTransit;
 using Polly;
 using Polly.Extensions.Http;
 using SearchService;
-using System.Net;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//builder.Services.AddControllers();
-builder.Services.AddFastEndpoints();
-builder.Services.AddAuthorization();
+builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpClient<AuctionSvcHttpClient>().AddPolicyHandler(GetPolicy());
+
+
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
@@ -31,7 +32,6 @@ builder.Services.AddMassTransit(x =>
         cfg.ReceiveEndpoint("search-auction-created", e =>
         {
             e.UseMessageRetry(r => r.Interval(5, 5));
-
             e.ConfigureConsumer<AuctionCreatedConsumer>(context);
         });
 
@@ -39,13 +39,35 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = builder.Configuration["IdentityServiceUrl"]; 
+        options.RequireHttpsMetadata = false; 
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true, 
+            ValidateAudience = false, 
+            ValidateLifetime = true, 
+            ValidateIssuerSigningKey = true, 
+            NameClaimType = "username" 
+        };
+    });
+
+//builder.Services.AddHttpClient<AuctionSvcHttpClient>(options =>
+//{
+//    options.BaseAddress = new Uri(builder.Configuration["AuctionServiceUrl"]);
+//});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-app.UseAuthorization();
+// Middleware pipeline
+app.UseAuthentication(); 
+app.UseAuthorization(); 
 
-//app.MapControllers();
-app.UseFastEndpoints();
+app.MapControllers(); 
+
 
 app.Lifetime.ApplicationStarted.Register(async () =>
 {
@@ -60,6 +82,7 @@ app.Lifetime.ApplicationStarted.Register(async () =>
 });
 
 app.Run();
+
 
 static IAsyncPolicy<HttpResponseMessage> GetPolicy()
     => HttpPolicyExtensions

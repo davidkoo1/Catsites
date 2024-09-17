@@ -28,31 +28,30 @@ export default function Listings({ user }: Props) {
         orderBy: state.orderBy,
         filterBy: state.filterBy,
         seller: state.seller,
-        winner: state.winner
+        winner: state.winner,
+        isInWishlist: state.isInWishlist
     })));
 
     const data = useAuctionStore(useShallow(state => ({
-        auctions: state.auctions,
+        auctions: state.auctions || [], // Ensure auctions is always an array
         totalCount: state.totalCount,
         pageCount: state.pageCount
-    })))
+    })));
     const setData = useAuctionStore(state => state.setData)
 
     const setParams = useParamsStore(state => state.setParams);
-    const url = qs.stringifyUrl({ url: '', query: params })
-
-    const currentUsername = user?.username;
+    const url = qs.stringifyUrl({ url: '', query: params });
 
     function setPageNumber(pageNumber: number) {
-        setParams({ pageNumber })
+        setParams({ pageNumber });
     }
 
     useEffect(() => {
         getData(url).then(data => {
             setData(data);
             setLoading(false);
-        })
-    }, [url])
+        });
+    }, [url]);
 
     if (loading) return (
         <div className="flex justify-center items-center">
@@ -60,6 +59,12 @@ export default function Listings({ user }: Props) {
         </div>
     );
 
+    // Ensure filteredAuctions is always an array
+    const filteredAuctions = params.isInWishlist
+        ? data.auctions.filter(auction => auction.isInWishlist)
+        : data.auctions;
+
+    const currentUsername = user?.username;
     return (
         <>
             <Filters />
@@ -77,7 +82,7 @@ export default function Listings({ user }: Props) {
                                 <span className='mt-2'>Add New Auction</span>
                             </Link>
                         )}
-                        {data.auctions.map(auction => (
+                        {filteredAuctions.map(auction => (
                             <AuctionCard auction={auction} key={auction.id} />
                         ))}
                     </div>
@@ -86,9 +91,7 @@ export default function Listings({ user }: Props) {
                             <AppPagination pageChanged={setPageNumber} currentPage={params.pageNumber} pageCount={data.pageCount} />
                         </div>
                     )}
-
                 </>
-
             )}
         </>
     )

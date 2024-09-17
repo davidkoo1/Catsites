@@ -9,7 +9,8 @@ type State = {
     orderBy: string
     filterBy: string
     seller?: string
-    winner?: string
+    winner?: string,
+    isInWishlist: boolean
 };
 
 type Auctions = {
@@ -28,7 +29,8 @@ const initialState: State = {
     orderBy: 'make',
     filterBy: 'live',
     seller: undefined,
-    winner: undefined
+    winner: undefined,
+    isInWishlist: false
 };
 
 export const useParamsStore = create<State & Auctions>()((set) => ({

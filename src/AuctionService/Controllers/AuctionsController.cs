@@ -1,13 +1,11 @@
-﻿using AuctionService.Data;
+﻿using AuctionService.Data.Interfaces;
 using AuctionService.DTOs;
 using AuctionService.Entities;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace AuctionService.Controllers;
 
@@ -30,7 +28,7 @@ public class AuctionsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<AuctionDto>>> GetAllAuctions(string date)
     {
-        return await _repo.GetAuctionsAsync(date);
+       return await _repo.GetAuctionsAsync(date);
     }
 
     [HttpGet("{id}")]
@@ -40,6 +38,14 @@ public class AuctionsController : ControllerBase
 
         if (auction == null) return NotFound();
 
+        if (User.Identity.IsAuthenticated)
+        {
+            var userId = User.GetUserId();
+
+            auction.IsInWishlist = await _repo.IsAuctionInWishlist(userId, id);
+
+        }
+
         return auction;
     }
 
@@ -48,6 +54,14 @@ public class AuctionsController : ControllerBase
     public async Task<ActionResult<AuctionDto>> CreateAuction(CreateAuctionDto auctionDto)
     {
         var auction = _mapper.Map<Auction>(auctionDto);
+        //const string defaultImagePath = "AuctionsItems/DefaultImg.png";
+        //string defaultImageUrl = $"{Request.Scheme}://{Request.Host}/{defaultImagePath}";
+
+        if (!auction.Item.ImageUrl.StartsWith("https", StringComparison.OrdinalIgnoreCase))
+        {
+            //auction.Item.ImageUrl = defaultImageUrl;
+            auction.Item.ImageUrl = "https://avatars.mds.yandex.net/i?id=f4003c14b2c4f83353131d7aeece128e6a2b0cb9-9198174-images-thumbs&ref=rim&n=33&w=341&h=250";
+        }
 
         auction.Seller = User.Identity.Name;
 
@@ -110,4 +124,14 @@ public class AuctionsController : ControllerBase
 
         return Ok();
     }
+
+    [HttpGet("export/{id}")]
+    public async Task<FileResult> ExportAuctionToCsv(Guid id)
+    {
+        var csvData = await _repo.ExportAuctionToCsvAsync(id);
+
+        return File(csvData, "text/csv", "auction.csv");
+    }
+
+
 }

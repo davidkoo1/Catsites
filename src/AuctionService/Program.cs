@@ -1,9 +1,12 @@
 using AuctionService;
 using AuctionService.Data;
+using AuctionService.Data.Interfaces;
+using AuctionService.Data.Repository;
 using AuctionService.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,9 +52,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+builder.Services.AddScoped<IWishListRepository, WishListRepository>();
 builder.Services.AddGrpc();
 
 var app = builder.Build();
+
+//app.UseStaticFiles(new StaticFileOptions
+//{
+//    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "AuctionsItems")),
+//    RequestPath = "/AuctionsItems"
+//});
 
 // Configure the HTTP request pipeline.
 app.UseAuthentication();

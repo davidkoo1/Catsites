@@ -67,7 +67,7 @@ export default function BidList({ user, auction }: Props) {
                 <div className='flex items-center justify-between'>
                     <Heading title={`Current high bid is`} />
                     <div className={`border-2 border-gray-700 text-white py-1 px-2 rounded-lg flex justify-center w-1/5 
-    ${auction.currentHighBid >= auction.reservePrice
+    ${highBid >= auction.reservePrice
                             ? (highBidder === user?.username ? 'bg-green-500' : 'bg-red-500')
                             : 'bg-amber-500'}`}>
                         {numberWithCommas(highBid)} {highBidder}

@@ -6,12 +6,18 @@ import { Dropdown, DropdownItem } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaTag, FaClock, FaUser, FaPalette, FaTrophy, FaCalendarAlt, FaRoad, FaCopy, FaEnvelope, FaFileCsv, FaShareAlt, FaPrint, FaHeart, FaHeartBroken, FaArrowRight } from 'react-icons/fa';
+import AuctionToCvs from "./AuctionToCvs";
+import WishlistButton from "./WishlistButton";
+import { User } from "next-auth";
+
+
 
 type Props = {
     auction: Auction;
+    user: User;
 };
 
-export default function DetailedSpecs({ auction }: Props) {
+export default function DetailedSpecs({ auction, user }: Props) {
     const open = useBidStore(state => state.open);
     const bids = useBidStore(state => state.bids);
     const router = useRouter();
@@ -22,22 +28,17 @@ export default function DetailedSpecs({ auction }: Props) {
             ? current.amount
             : prev, 0);
 
+
+
     const handleAllAuctionsClick = () => {
         router.push('/');
     };
 
     const handleCopyLink = () => {
-        /*navigator.clipboard.writeText(window.location.href);
-        alert('Link copied to clipboard!');
-        */
         toast.success('Link copied to clipboard!');
         navigator.clipboard.writeText(window.location.href);
     };
 
-    const handleExportCSV = () => {
-        // Dummy function for exporting to CSV
-        alert('Exporting to CSV...');
-    };
 
     const handleSendEmail = () => {
         window.location.href = `mailto:?subject=Check this auction&body=Check out this auction: ${window.location.href}`;
@@ -52,12 +53,11 @@ export default function DetailedSpecs({ auction }: Props) {
                 </div>
 
                 <div className="flex items-center">
-                    {/*ONLY FOT LOGIN users Wishlist Button  */}
-                    <div className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center">
-                        <FaHeart className="mr-2" />
-                        <FaHeartBroken className="mr-2" />
-                        <span>Wishlist</span>
-                    </div>
+                    {/* Wishlist Button */}
+                    {user?.username && (
+                        <WishlistButton auction={auction} />
+                    )}
+
 
                     {/* Share Dropdown */}
                     <div className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
@@ -65,13 +65,11 @@ export default function DetailedSpecs({ auction }: Props) {
                             <DropdownItem icon={FaCopy} onClick={handleCopyLink}>
                                 Copy Link
                             </DropdownItem>
-                            <DropdownItem icon={FaFileCsv}> {/* onClick={handleExportCSV} */}
-                                Export to CSV
-                            </DropdownItem>
-                            <DropdownItem icon={FaEnvelope}> {/* onClick={handleSendEmail} */}
+                            <AuctionToCvs auctionId={auction.id} />
+                            <DropdownItem icon={FaEnvelope} onClick={handleSendEmail}>
                                 Send via Email
                             </DropdownItem>
-                            <DropdownItem icon={FaPrint}> {/* onClick={() => window.print()} */}
+                            <DropdownItem icon={FaPrint} onClick={() => window.print()}>
                                 Print
                             </DropdownItem>
                         </Dropdown>
@@ -85,12 +83,7 @@ export default function DetailedSpecs({ auction }: Props) {
                         <FaArrowRight className="ml-2" />
                     </button>
                 </div>
-
-
-
-
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Car Information */}
                 <div className="space-y-3">

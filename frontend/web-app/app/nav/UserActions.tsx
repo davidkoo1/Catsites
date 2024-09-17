@@ -8,9 +8,8 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 import { AiFillCar, AiFillTrophy, AiOutlineLogin, AiOutlineLogout } from 'react-icons/ai'
-import { HiBell, HiUser } from 'react-icons/hi'
+import { HiBell, HiHeart, HiUser } from 'react-icons/hi'
 import { HiCog } from 'react-icons/hi2'
-
 
 type Props = {
   user: User
@@ -21,40 +20,31 @@ export default function UserActions({ user }: Props) {
   const pathname = usePathname();
   const setParams = useParamsStore(state => state.setParams);
 
-  function setWinner()
-  {
-    setParams({winner: user.username, seller: undefined})
+  function setWinner() {
+    setParams({ winner: user.username, seller: undefined, isInWishlist: undefined });
     if (pathname !== '/') router.push('/');
   }
 
-  function setSeller()
-  {
-    setParams({winner: undefined, seller: user.username})
+  function setSeller() {
+    setParams({ seller: user.username, winner: undefined, isInWishlist: undefined });
+    if (pathname !== '/') router.push('/');
+  }
+
+  function setWishlist() {
+    setParams({ winner: undefined, seller: undefined, isInWishlist: true });
     if (pathname !== '/') router.push('/');
   }
 
   return (
-    // <button className='bg-white hover:bg-gray-300 text-black font-semibold py-2 px-4 rounded'>
-    //   <Link href='/session'>
-    //     Session
-    //   </Link>
-    // </button>
     <Dropdown label={`Welcome ${user.name}`} inline>
-      {/* <DropdownItem icon={HiBell}>
-        <Link href='/'>
-          Wishlist
-        </Link>
-      </DropdownItem>
-      <DropdownItem icon={HiBell}>
-        <Link href='/'>
-          Notification
-        </Link>
-      </DropdownItem> */}
       <DropdownItem icon={HiUser} onClick={setSeller}>
-          My Auctions
+        My Auctions
+      </DropdownItem>
+      <DropdownItem icon={HiHeart} onClick={setWishlist}>
+        My Wishlist
       </DropdownItem>
       <DropdownItem icon={AiFillTrophy} onClick={setWinner}>
-          Aucions won
+        Auctions Won
       </DropdownItem>
       <DropdownItem icon={AiFillCar}>
         <Link href='/auctions/create'>

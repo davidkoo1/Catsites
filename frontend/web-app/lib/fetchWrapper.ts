@@ -5,7 +5,17 @@ const baseUrl = 'http://localhost:6001/';
 async function get(url: string) {
     const requestOptions = {
         method: 'GET',
-        header: await getHeaders()
+        headers: await getHeaders()
+    }
+
+    const response = await fetch(baseUrl + url, requestOptions);
+    return await handleResponse(response);
+}
+
+async function getAuth(url: string) {
+    const requestOptions = {
+        method: 'GET',
+        headers: await getHeaders()
     }
 
     const response = await fetch(baseUrl + url, requestOptions);
@@ -73,6 +83,7 @@ async function handleResponse(response: Response) {
 
 export const fetchWrapper = {
     get,
+    getAuth,
     post,
     put,
     del

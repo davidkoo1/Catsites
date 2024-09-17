@@ -1,7 +1,6 @@
 'use server'
 
 import { Auction, Bid, PagedResult } from "@/types";
-import { getTokenWorkaround } from "./authActions";
 import { fetchWrapper } from "@/lib/fetchWrapper";
 import { FieldValues } from "react-hook-form";
 import { revalidatePath } from "next/cache";
@@ -42,4 +41,12 @@ export async function getBidsForAuction(id: string): Promise<Bid[]> {
 
 export async function placeBidForAuction(auctionId: string, amount: number) {
     return await fetchWrapper.post(`bids?auctionId=${auctionId}&amount=${amount}`, {})
+}
+
+export async function addToWishlist(auctionId: string) {
+    return await fetchWrapper.post(`wishlist/add/${auctionId}`, {});
+}
+
+export async function removeFromWishlist(auctionId: string) {
+    return await fetchWrapper.del(`wishlist/remove/${auctionId}`);
 }

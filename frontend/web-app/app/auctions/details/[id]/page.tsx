@@ -8,7 +8,6 @@ import { getCurrentUser } from '@/app/actions/authActions';
 import EditButton from './EditButton';
 import DeleteButton from './DeleteButton';
 import BidList from './BidList';
-import Listings from '../../Listings';
 import SimilarAuctions from '../../SimilarAuctions';
 
 export default async function Details({ params }: { params: { id: string } }) {
@@ -44,13 +43,12 @@ export default async function Details({ params }: { params: { id: string } }) {
       </div>
 
       <div className='mt-3 grid grid-cols-1 rounded-lg'>
-        <DetailedSpecs auction={data} />
+        <DetailedSpecs auction={data} user={user} />
       </div>
 
       <div className='mt-10 grid grid-cols-1 rounded-lg'>
         <SimilarAuctions currentAuctionId={data.id} make={data.make} />
       </div>
-
     </div>
   )
 }
