@@ -15,29 +15,7 @@
 
 
 ## TODO:
-- Add logger
-- Add fluent validation
-- Add localization
-- Add role
-- Write configs for Entities
-### Frontend
-- User role(User, Moderator, Admin)
-- use popup modal
-- Clear AppPage console
-- Add in right-top current price
-- *mb number of car?(bottom)
-
-### Backend
-- Write Health-checks
-- Write Testing for Services and webTests + (Use fake db)
-- Global Usings
-# Try fix CA+MinimalAPi+CQRS+RabbitMq for AuctionService
-
-Write 3 web part:
-- Angular
-- Asp.net core mvc & devexpress/kendoui
-After successful web part creation, create a mobile app using MAUI.
-* Use quartz/questpdf
+- All todo list in asana
 
 - [Auction Assets](src/AuctionService/AuctionsItems)
 - [Search Assets](src/SearchService/SearchItems)
@@ -45,10 +23,11 @@ After successful web part creation, create a mobile app using MAUI.
 ## Testing Postman
 
 ## Docker
-- 2 **docker compose build search-svc** /auction/identity/gateway
-- 1 **docker compose up -d**
-- **docker compose down**
-
+- 1 **docker compose build search-svc** /auction/identity/gateway
+- 2 **docker compose up -d**
+- 3 **docker compose down**
+P.S 1 - db run in docker, db migration
+for check db data localhost, postgres, postgrespw, standart, auction, lcoalhost
 ## Database
 
 ## Other
