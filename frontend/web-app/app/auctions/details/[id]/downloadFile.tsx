@@ -1,5 +1,5 @@
   export async function downloadFile(id: string) {
-    const fileUrl = `http://localhost:6001/auctions/export/${id}`;
+    const fileUrl = process.env.API_URL +`auctions/export/${id}`;
     const response = await fetch(fileUrl);
   
     if (!response.ok) {

@@ -9,10 +9,11 @@ import EditButton from './EditButton';
 import DeleteButton from './DeleteButton';
 import BidList from './BidList';
 import SimilarAuctions from '../../SimilarAuctions';
+import { User } from 'next-auth';
 
 export default async function Details({ params }: { params: { id: string } }) {
   const data = await getDetailedViewData(params.id);
-  const user = await getCurrentUser();
+  const user = await getCurrentUser() as User;
 
   return (
     <div>

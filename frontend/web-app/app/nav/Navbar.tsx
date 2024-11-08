@@ -13,10 +13,11 @@ import Logo from './Logo';
 import LoginButton from './LoginButton';
 import { getCurrentUser } from '../actions/authActions';
 import UserActions from './UserActions';
+import { User } from 'next-auth';
 
 export default async function Navbar() {
 
-  const user = await getCurrentUser();
+  const user = await getCurrentUser() as User;
 
   return (
     <header className='sticky top-0 z-50 flex justify-between bg-black p-4 items-center text-gray-300 shadow-xl'>

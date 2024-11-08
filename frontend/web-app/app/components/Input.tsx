@@ -1,15 +1,15 @@
-import { Label, TextInput } from 'flowbite-react'
-import React from 'react'
-import { UseControllerProps, useController } from 'react-hook-form'
+import { useController, UseControllerProps } from "react-hook-form";
+import { Label, TextInput } from "flowbite-react";
 
 type Props = {
-    label: string
-    type?: string
-    showLabel?: boolean
-} & UseControllerProps
+    label: string;
+    type?: string;
+    showLabel?: boolean;
+    onFocus?: () => void;  // Добавляем onFocus в пропсы
+} & UseControllerProps;
 
 export default function Input(props: Props) {
-    const {fieldState, field} = useController({...props, defaultValue: ''})
+    const { fieldState, field, formState } = useController({ ...props, defaultValue: '' });
 
     return (
         <div className='mb-3'>
@@ -19,13 +19,22 @@ export default function Input(props: Props) {
                 </div>
             )}
             <TextInput
-                    {...props}
-                    {...field}
-                    type={props.type || 'text'}
-                    placeholder={props.label}
-                    color={fieldState.error ? 'failure' : !fieldState.isDirty ? '' : 'success'}
-                    helperText={fieldState.error?.message}
-                />
+                {...props}
+                {...field}
+                type={props.type || 'text'}
+                placeholder={props.label}
+                color={fieldState?.error ? 'failure' : !fieldState.isDirty ? '' : 'success'}
+                onFocus={props.onFocus}  // Передаем onFocus в TextInput
+            />
+            
+            {/*fieldState.error?.message && (
+                <div className="mt-2 text-red-500 text-sm mb-2">}
+                    {fieldState.error.message.split('\n').map((error, index) => (
+                        <p key={index}>{error}</p>
+                    ))}
+                </div>
+            )*/}
+            
         </div>
-    )
+    );
 }
